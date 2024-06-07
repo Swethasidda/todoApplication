@@ -29,9 +29,7 @@ intailizeDBAndServer()
 
 ///API1
 const hasPriorityAndStatusProperties = requestQuery => {
-  return (
-    requestQuery.priority !== undefined && requestQuery.status !== undefined
-  )
+  return requestQuery.priority !== undefined && requestQuery.status !== undefined
 }
 const hasPriorityProperty = requestQuery => {
   return requestQuery.priority !== undefined
@@ -90,11 +88,11 @@ app.get('/todos/', async (request, response) => {
 module.exports = app
 ///API2
 app.get('/todos/:todoId/', async (request, response) => {
-  const {todoID} = request.params
+  const {todoId} = request.params
   const getQuery = `
   SELECT * 
   FROM todo 
-  WHERE id = '${todoID}';
+  WHERE id = '${todoId}';
   `
   let query = await db.get(getQuery)
   response.send({
@@ -126,7 +124,7 @@ app.post('/todos/', async (request, response) => {
 //API4
 app.put('/todos/:todoId/', async (request, response) => {
   let updateColumn = ''
-  const {todoID} = request.params
+  const {todoId} = request.params
   const requestBody = request.body
   switch (true) {
     case requestBody.status !== undefined:
@@ -139,7 +137,7 @@ app.put('/todos/:todoId/', async (request, response) => {
   const priviousQuery = `
   SELECT *
   FROM todo 
-  WHERE id = '${todoID}';
+  WHERE id = '${todoId}';
   `
   const priviousTodo = await db.run(priviousQuery)
   const {
@@ -154,7 +152,7 @@ app.put('/todos/:todoId/', async (request, response) => {
   priority = '${priority}',
   status = '${status}'
   WHERE 
-  id ='${todoID}';
+  id ='${todoId}';
   `
   await db.run(updatedTodoQuery)
   response.send(`${updateColumn} Updated`)
@@ -162,10 +160,10 @@ app.put('/todos/:todoId/', async (request, response) => {
 
 //API 5
 app.delete('/todos/:todoId/', async (request, response) => {
-  const {todoID} = request.params
+  const {todoId} = request.params
   const getQuery = `
   DELETE FROM todo 
-  WHERE id = '${todoID}';
+  WHERE id = '${todoId}';
   `
   await db.run(getQuery)
   response.send('Todo Deleted')
