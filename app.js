@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 
 const path = require('path')
-const dbpath = path.join(__dirname, 'todoApplication.db.')
+const dbpath = path.join(__dirname, 'todoApplication.db')
 
 const {open} = require('sqlite')
 const sqlite3 = require('sqlite3')
@@ -33,15 +33,12 @@ const hasPriorityAndStatusProperties = requestQuery => {
     requestQuery.priority !== undefined && requestQuery.status !== undefined
   )
 }
-
 const hasPriorityProperty = requestQuery => {
   return requestQuery.priority !== undefined
 }
-
 const hasStatusProperty = requestQuery => {
   return requestQuery.status !== undefined
 }
-
 app.get('/todos/', async (request, response) => {
   let data = null
   let getQuery = ''
