@@ -129,17 +129,23 @@ app.put('/todos/:todoId/', async (request, response) => {
   switch (true) {
     case requestBody.status !== undefined:
       updateColumn = 'Status'
+      break
     case requestBody.priority !== undefined:
       updateColumn = 'Priority'
+      break
     case requestBody.todo !== undefined:
       updateColumn = 'Todo'
+      break
   }
   const priviousQuery = `
-  SELECT *
-  FROM todo 
-  WHERE id = '${todoId}';
+  SELECT 
+    *
+  FROM 
+    todo 
+  WHERE 
+    id = '${todoId}';
   `
-  const priviousTodo = await db.run(priviousQuery)
+  const priviousTodo = await db.get(priviousQuery)
   const {
     todo = priviousTodo.todo,
     priority = priviousTodo.priority,
