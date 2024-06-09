@@ -29,7 +29,9 @@ intailizeDBAndServer()
 
 ///API1
 const hasPriorityAndStatusProperties = requestQuery => {
-  return requestQuery.priority !== undefined && requestQuery.status !== undefined
+  return (
+    requestQuery.priority !== undefined && requestQuery.status !== undefined
+  )
 }
 const hasPriorityProperty = requestQuery => {
   return requestQuery.priority !== undefined
@@ -46,8 +48,8 @@ app.get('/todos/', async (request, response) => {
       getQuery = `
       SELECT *
       FROM todo 
-      WHERE todo LIKE '%${search_q}%',
-      AND status = '${status}',
+      WHERE todo LIKE '%${search_q}%'
+      AND status = '${status}'
       AND priority = '${priority}';
       `
       break
